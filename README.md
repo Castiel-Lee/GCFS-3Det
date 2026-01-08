@@ -30,6 +30,7 @@ The following diagram illustrates our benchmarking pipeline, encompassing source
 
 <div align="center">
   <img src="docs/GCFS.png" width="800" alt="GCFS Benchmark Framework"/>
+  <br>
   <em>Figure: The GCFS Task</em>
 </div>
 
