@@ -4,7 +4,7 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2503.06282-b31b1b.svg)](https://arxiv.org/abs/2503.06282)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-This repository contains the official implementation of the paper: **"From Dataset to Real-world: General 3D Object Detection via Generalized Cross-domain Few-shot Learning"**. The extension of the paper is public accessabl in [arXiv](https://img.shields.io/badge/arXiv-23XX.XXXXX-b31b1b.svg).
+This repository contains the official implementation of the paper: **"From Dataset to Real-world: General 3D Object Detection via Generalized Cross-domain Few-shot Learning"**. The extension of the paper is public accessabl in [arXiv]([https://img.shields.io/badge/arXiv-23XX.XXXXX-b31b1b.svg](https://arxiv.org/abs/2503.06282)).
 
 LiDAR-based 3D object detection models often struggle to generalize to real-world environments due to limited object diversity in existing datasets. To tackle it, we introduce the first **generalized cross-domain few-shot (GCFS)** task in 3D object detection, aiming to adapt a source-pretrained model to both common and novel classes in a new domain with only few-shot annotations. Accordingly, we propose a unified framework that learns stable target semantics under limited supervision by bridging 2D open-set semantics with 3D spatial reasoning, by corporating the image-guided multi-modal fusion and contrastive-enhanced prototype learning.
 
