@@ -1,7 +1,7 @@
 # [Paper Title]: From Dataset to Real-world: General 3D Object Detection via Generalized Cross-domain Few-shot Learning
 
 
-[![arXiv](https://img.shields.io/badge/arXiv-23XX.XXXXX-b31b1b.svg)](https://arxiv.org/abs/23XX.XXXXX)
+[![arXiv](https://img.shields.io/badge/arXiv-2503.06282-b31b1b.svg)](https://arxiv.org/abs/2503.06282)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 This repository contains the official implementation of the paper: **"From Dataset to Real-world: General 3D Object Detection via Generalized Cross-domain Few-shot Learning"**. The extension of the paper is public accessabl in [arXiv](https://img.shields.io/badge/arXiv-23XX.XXXXX-b31b1b.svg).
