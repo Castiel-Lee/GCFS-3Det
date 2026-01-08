@@ -1,4 +1,4 @@
-# [Paper Title]: From Dataset to Real-world: General 3D Object Detection via Generalized Cross-domain Few-shot Learning
+# From Dataset to Real-world: General 3D Object Detection via Generalized Cross-domain Few-shot Learning
 
 
 [![arXiv](https://img.shields.io/badge/arXiv-2503.06282-b31b1b.svg)](https://arxiv.org/abs/2503.06282)
