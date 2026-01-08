@@ -1,0 +1,408 @@
+CLASS_NAMES: ['Car', 'Pedestrian', 'Truck', 'bicycle', 'barrier', 'construction_vehicle', 'bus', 'trailer', 'motorcycle', 'traffic_cone', 'Van', 'Person_sitting', 'Cyclist', 'Tram']
+
+DATA_CONFIG:
+    _BASE_CONFIG_: cfgs/dataset_configs/kitti/FS-DA/fs-1shot-kitti_dataset_gt_D_p.yaml
+    CLASS_NAMES: ['Car', 'Pedestrian', 'Truck', 'bicycle', 'barrier', 'construction_vehicle', 'bus', 'trailer', 'motorcycle', 'traffic_cone', 'Van', 'Person_sitting', 'Cyclist', 'Tram']
+    SHIFT_COOR: [0.0, 0.0, 1.6]
+    FOV_POINTS_ONLY: True
+
+    GET_ITEM_LIST: ["points", "images", "gt_boxes2d"]
+
+    DATA_AUGMENTOR:
+        DISABLE_AUG_LIST: ['placeholder']
+        AUG_CONFIG_LIST:
+            -   NAME: gt_sampling_with_image
+                SHIFT_COOR: [0.0, 0.0, 1.6] # must align with config above
+
+                AUG_WITH_IMAGE: True # use PC-Image Aug
+                JOINT_SAMPLE: True # joint sample with point
+                KEEP_RAW: False # keep original PC
+                POINT_REFINE: True # refine points with different calib
+                BOX_IOU_THRES: 0.5
+                IMG_AUG_TYPE: by_depth
+                AUG_USE_TYPE: annotation
+                IMG_ROOT_PATH: training/image_2
+
+                USE_ROAD_PLANE: True
+                DB_INFO_PATH:
+                    - kitti_dbinfos_train.pkl
+                PREPARE: {
+                    filter_by_min_points: ['Car:1', 'Pedestrian:1', 'Truck:1', 'Van:1', 'Person_sitting:1', 'Cyclist:1', 'Tram:1'],
+                    # filter_by_difficulty: [-1],
+                }
+
+                SAMPLE_GROUPS: ['Car:1', 'Pedestrian:1', 'Truck:1', 'Van:1', 'Person_sitting:1', 'Cyclist:1', 'Tram:1']
+                NUM_POINT_FEATURES: 4
+                DATABASE_WITH_FAKELIDAR: False
+                REMOVE_EXTRA_WIDTH: [0.0, 0.0, 0.0]
+                LIMIT_WHOLE_SCENE: False
+
+            -   NAME: random_world_flip
+                ALONG_AXIS_LIST: ['x', 'y']
+
+            -   NAME: random_world_rotation
+                WORLD_ROT_ANGLE: [-0.78539816, 0.78539816]
+
+            -   NAME: random_world_scaling
+                WORLD_SCALE_RANGE: [0.95, 1.05]
+
+DATA_CONFIG_SRC_2:
+    _BASE_CONFIG_: cfgs/dataset_configs/kitti/FS-DA/fs-1shot-kitti_dataset_gt_D_p.yaml
+    CLASS_NAMES: ['Car', 'Pedestrian', 'Truck', 'bicycle', 'barrier', 'construction_vehicle', 'bus', 'trailer', 'motorcycle', 'traffic_cone', 'Van', 'Person_sitting', 'Cyclist', 'Tram']
+    SHIFT_COOR: [0.0, 0.0, 1.6]
+    FOV_POINTS_ONLY: True
+
+    GET_ITEM_LIST: ["points", "images", "gt_boxes2d"]
+
+    DATA_AUGMENTOR:
+        DISABLE_AUG_LIST: ['placeholder']
+        AUG_CONFIG_LIST:
+            -   NAME: gt_sampling_with_image
+                SHIFT_COOR: [0.0, 0.0, 1.6] # must align with config above
+
+                AUG_WITH_IMAGE: True # use PC-Image Aug
+                JOINT_SAMPLE: True # joint sample with point
+                KEEP_RAW: False # keep original PC
+                POINT_REFINE: True # refine points with different calib
+                BOX_IOU_THRES: 0.5
+                IMG_AUG_TYPE: by_depth
+                AUG_USE_TYPE: annotation
+                IMG_ROOT_PATH: training/image_2
+
+                USE_ROAD_PLANE: True
+                DB_INFO_PATH:
+                    - kitti_dbinfos_train.pkl
+                PREPARE: {
+                    filter_by_min_points: ['Car:1', 'Pedestrian:1', 'Truck:1', 'Van:1', 'Person_sitting:1', 'Cyclist:1', 'Tram:1'],
+                    # filter_by_difficulty: [-1],
+                }
+
+                # POINT_DROP: ['Cyclist:0.6'] ###
+                SAMPLE_GROUPS: ['Car:1', 'Pedestrian:1', 'Truck:1', 'Van:1', 'Person_sitting:1', 'Cyclist:1', 'Tram:1']
+                NUM_POINT_FEATURES: 4
+                DATABASE_WITH_FAKELIDAR: False
+                REMOVE_EXTRA_WIDTH: [0.0, 0.0, 0.0]
+                LIMIT_WHOLE_SCENE: False
+
+            -   NAME: random_world_flip
+                ALONG_AXIS_LIST: ['x', 'y']
+
+            -   NAME: random_world_rotation
+                WORLD_ROT_ANGLE: [-0.78539816, 0.78539816]
+
+            -   NAME: random_world_scaling
+                WORLD_SCALE_RANGE: [0.95, 1.05]
+
+DATA_CONFIG_SUPPORT:
+    _BASE_CONFIG_: cfgs/dataset_configs/kitti/FS-DA/fs-1shot-kitti_dataset_gt_D_p.yaml
+    CLASS_NAMES: ['Car', 'Pedestrian', 'Truck', 'bicycle', 'barrier', 'construction_vehicle', 'bus', 'trailer', 'motorcycle', 'traffic_cone', 'Van', 'Person_sitting', 'Cyclist', 'Tram']
+    SHIFT_COOR: [0.0, 0.0, 1.6]
+    FOV_POINTS_ONLY: True
+
+    GET_ITEM_LIST: ["points", "images", "gt_boxes2d"]
+    
+    # K_SHOTS: None
+    COMMON_CLS: ['Car', 'Pedestrian', 'Truck']
+    NOVEL_CLS: ['Van', 'Person_sitting', 'Cyclist', 'Tram']
+
+    DATA_AUGMENTOR:
+        DISABLE_AUG_LIST: ['placeholder']
+        AUG_CONFIG_LIST:
+            -   NAME: gt_sampling_with_image
+                SHIFT_COOR: [0.0, 0.0, 1.6] # must align with config above
+
+                AUG_WITH_IMAGE: True # use PC-Image Aug
+                JOINT_SAMPLE: True # joint sample with point
+                KEEP_RAW: False # keep original PC
+                POINT_REFINE: True # refine points with different calib
+                BOX_IOU_THRES: 0.5
+                IMG_AUG_TYPE: by_depth
+                AUG_USE_TYPE: annotation
+                IMG_ROOT_PATH: training/image_2
+
+                USE_ROAD_PLANE: True
+                DB_INFO_PATH:
+                    - kitti_dbinfos_train.pkl
+                PREPARE: {
+                    filter_by_min_points: ['Car:1', 'Pedestrian:1', 'Truck:1', 'Van:1', 'Person_sitting:1', 'Cyclist:1', 'Tram:1'],
+                    # filter_by_difficulty: [-1],
+                }
+
+                # POINT_DROP: ['Cyclist:0.6'] ###
+                SAMPLE_GROUPS: ['Car:1', 'Pedestrian:1', 'Truck:1', 'Van:1', 'Person_sitting:1', 'Cyclist:1', 'Tram:1']
+                NUM_POINT_FEATURES: 4
+                DATABASE_WITH_FAKELIDAR: False
+                REMOVE_EXTRA_WIDTH: [0.0, 0.0, 0.0]
+                LIMIT_WHOLE_SCENE: False
+
+            -   NAME: random_world_flip
+                ALONG_AXIS_LIST: ['x', 'y']
+
+            -   NAME: random_world_rotation
+                WORLD_ROT_ANGLE: [-0.78539816, 0.78539816]
+
+            -   NAME: random_world_scaling
+                WORLD_SCALE_RANGE: [0.95, 1.05]
+    
+
+
+DATA_CONFIG_TEST:
+    _BASE_CONFIG_: cfgs/dataset_configs/kitti/FS-DA/kitti_dataset_gt_D_p.yaml
+    CLASS_NAMES: ['Car', 'Pedestrian', 'Truck', 'bicycle', 'barrier', 'construction_vehicle', 'bus', 'trailer', 'motorcycle', 'traffic_cone', 'Van', 'Person_sitting', 'Cyclist', 'Tram']
+    SHIFT_COOR: [0.0, 0.0, 1.6]
+    FOV_POINTS_ONLY: True
+    GET_ITEM_LIST: ["points", "images"]
+ 
+MODEL:
+    NAME: VoxelRCNN_COMMON_NwayNovel_CLS_PROTOTYPE_2DATA_LOADED
+
+    PRE_SETTING:
+        CL_FOR_DOMAIN_ALI: True
+        USE_SUPPORT_AS_ANCHOR: True
+        
+        CLS_EMB_IN_CONTRAST: True
+        CLS_EMB_IN_CL_ONLY: True
+        ALL_CLS_FOR_PRO: True
+
+        CLS_PRO_NO_GRAD: True
+
+    VFE:
+        NAME: DynMeanVFE
+
+    BACKBONE_3D:
+        NAME: VoxelBackBone8x_ImgGDinoSam_2
+        # sam
+        SAM_PRETRAIN: 'xxx/MultiModal_FSDA/pretrained_models/sam_vit_b_01ec64.pth'
+        MODEL_TYPE: 'vit_b'
+
+        #DINO
+        DINO_CONFIG: "xxx/GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py"
+        DINO_PRETRAIN: "xxx/GroundingDINO/weights/groundingdino_swint_ogc.pth"
+        # BOX_TRESHOLD: 0.25 # 0.3
+        # TEXT_TRESHOLD: 0.25 # 0.25
+        # TEXT_PROMPTS: "cyclist . van . cargo-van . box-truck . truck . SUV . car . tram . pedestrian . seated-person" # "sitting person . cyclist . van . truck . car . tram . walking pedestrian"
+        TEXT_TO_CLS: {'car':1, 'suv':1, 'pedestrian':2, 'truck':3, 
+            'van':11, 'rider':13, 'tram':14, 'person':12}
+
+        GDINO_PROCESS: { 
+            "first": {
+                "TEXT_PROMPT": "pedestrian . car  . suv . truck . van",
+                "DT_labels": {'pedestrian': 2, 'car': 1, 'suv': 1, 'truck':3},
+                "BOX_TRESHOLD": 0.30,
+                "TEXT_TRESHOLD": 0.40,
+                "repel_labels": None,
+                'replace_labels': {'suv':'car'},
+                "scores_down": {'pedestrian': 0.3, 'truck':0.30, 'suv':0.04},
+            },
+            "second": {
+                "TEXT_PROMPT": "van . cargo-van . car . box-truck . tram . bicycle-rider . seated-person",
+                "DT_labels": {'van': 11, 'tram':14, 'person':12, 'rider':13},
+                "BOX_TRESHOLD": 0.25,
+                "TEXT_TRESHOLD": 0.25,
+                "repel_labels": {'van':'car', 'tram':'truck'},
+            }
+        }
+
+        # backbone final output
+        MAX_NUM_MASK: 14
+        OUTPUT_CHANNEL: 127
+        FUSION_OPR: sum
+        BOX_FIT_CONFIG: 'nusc_com3_kitti_nov4'
+
+        MULTI_SRC_CHANNEL: {'x_conv2': 31, 'x_conv3': 63, 'x_conv4': 63}
+
+        PROMPT_DETECTOR:
+            # YAML_FILE: 'cfgs/FS-DA/nusc_to_fs_kitti/kitti_finetune/voxel_rcnn_simple_FT.yaml'
+            # MODEL_FILE: 'voxel_rcnn_simple_FT.pth'
+            CLS_NUM: 14
+
+    MAP_TO_BEV:
+        NAME: HeightCompression
+        NUM_BEV_FEATURES: 256
+
+    BACKBONE_2D:
+        NAME: BaseBEVBackbone
+
+        LAYER_NUMS: [5, 5]
+        LAYER_STRIDES: [1, 2]
+        NUM_FILTERS: [128, 256]
+        UPSAMPLE_STRIDES: [1, 2]
+        NUM_UPSAMPLE_FILTERS: [256, 256]
+
+    DENSE_HEAD:
+        NAME: CenterHead
+        CLASS_AGNOSTIC: False
+
+        CLASS_NAMES_EACH_HEAD: [
+            ['car', 'pedestrian', 'truck', 
+             'Car', 'Pedestrian', 'Truck', 
+             'bicycle', 'barrier', 'construction_vehicle', 'bus', 'trailer', 'motorcycle', 'traffic_cone', 
+             'Van', 'Person_sitting', 'Cyclist', 'Tram'
+            ]
+        ]
+
+        SHARED_CONV_CHANNEL: 64
+        USE_BIAS_BEFORE_NORM: True
+        NUM_HM_CONV: 2
+        SEPARATE_HEAD_CFG:
+            HEAD_ORDER: [ 'center', 'center_z', 'dim', 'rot' ]
+            HEAD_DICT: {
+                'center': { 'out_channels': 2, 'num_conv': 2 },
+                'center_z': { 'out_channels': 1, 'num_conv': 2 },
+                'dim': { 'out_channels': 3, 'num_conv': 2 },
+                'rot': { 'out_channels': 2, 'num_conv': 2 },
+            }
+        
+        # DIM_CAT_TO_HM2: True
+
+        TARGET_ASSIGNER_CONFIG:
+            FEATURE_MAP_STRIDE: 8
+            NUM_MAX_OBJS: 500
+            GAUSSIAN_OVERLAP: 0.1
+            MIN_RADIUS: 2
+
+        LOSS_CONFIG:
+            LOSS_WEIGHTS: {
+                'cls_weight': 1.0,
+                'loc_weight': 2.0,
+                'code_weights': [ 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 ]
+            }
+
+        POST_PROCESSING:
+            SCORE_THRESH: 0.1
+            POST_CENTER_LIMIT_RANGE: [ -75.2, -75.2, -2, 75.2, 75.2, 4 ]
+            MAX_OBJ_PER_SAMPLE: 500
+            NMS_CONFIG:
+                NMS_TYPE: nms_gpu
+                NMS_THRESH: 0.7
+                NMS_PRE_MAXSIZE: 4096
+                NMS_POST_MAXSIZE: 500
+
+    ROI_HEAD:
+        NAME: VoxelRCNNHead_CLS_PROTOTYPE
+        CLASS_AGNOSTIC: True
+
+        SHARED_FC: [256, 256]
+        CLS_FC: [256, 256]
+        REG_FC: [256, 256]
+        DP_RATIO: 0.3
+
+        ###
+        TEST_ROI_REFINE_BY_PRO:  False 
+        USE_LEARNABLE_CLS_PRO: False
+
+        # CLS_PROTOTYPES_ATTEN:
+        #     # Attension_cls: [ 'Van', 'Person_sitting', 'Cyclist', 'Tram']
+        #     N_head: 4
+        #     Dropout: 0.1
+        
+        LEARNABLE_CLS_PROTOTYPES_ATTEN:
+            # Attension_cls: [ 'Van', 'Person_sitting', 'Cyclist', 'Tram']
+            N_cls: 7
+            N_head: 4
+            Dropout: 0.1
+
+        NMS_CONFIG:
+            TRAIN:
+                NMS_TYPE: nms_gpu
+                MULTI_CLASSES_NMS: False
+                NMS_PRE_MAXSIZE: 9000
+                NMS_POST_MAXSIZE: 512
+                NMS_THRESH: 0.8
+            TEST:
+                NMS_TYPE: nms_gpu
+                MULTI_CLASSES_NMS: False
+                NMS_PRE_MAXSIZE: 1024
+                NMS_POST_MAXSIZE: 100
+                NMS_THRESH: 0.7
+                # NMS_PRE_MAXSIZE: 4096
+                # NMS_POST_MAXSIZE: 300
+                # NMS_THRESH: 0.85
+
+        ROI_GRID_POOL:
+            FEATURES_SOURCE: ['x_conv2', 'x_conv3', 'x_conv4']
+            PRE_MLP: True
+            GRID_SIZE: 6
+            POOL_LAYERS:
+                x_conv2:
+                    MLPS: [ [ 64, 64 ] ]
+                    QUERY_RANGES: [ [ 3, 3, 2 ] ]
+                    POOL_RADIUS: [ 0.4 ]
+                    NSAMPLE: [ 16 ]
+                    POOL_METHOD: max_pool
+                x_conv3:
+                    MLPS: [ [ 64, 64 ] ]
+                    QUERY_RANGES: [ [ 3, 3, 2 ] ]
+                    POOL_RADIUS: [ 0.8 ]
+                    NSAMPLE: [ 16 ]
+                    POOL_METHOD: max_pool
+                x_conv4:
+                    MLPS: [ [ 64, 64 ] ]
+                    QUERY_RANGES: [ [ 3, 3, 2 ] ]
+                    POOL_RADIUS: [ 1.6 ]
+                    NSAMPLE: [ 16 ]
+                    POOL_METHOD: max_pool
+
+        TARGET_CONFIG:
+            BOX_CODER: ResidualCoder
+            ROI_PER_IMAGE: 128
+            FG_RATIO: 0.5
+
+            SAMPLE_ROI_BY_EACH_CLASS: True
+            CLS_SCORE_TYPE: roi_iou
+
+            CLS_FG_THRESH: 0.75
+            CLS_BG_THRESH: 0.25
+            CLS_BG_THRESH_LO: 0.1
+            HARD_BG_RATIO: 0.8
+
+            REG_FG_THRESH: 0.55
+
+        LOSS_CONFIG:
+            CLS_LOSS: BinaryCrossEntropy
+            REG_LOSS: smooth-l1
+            CORNER_LOSS_REGULARIZATION: True
+            LOSS_WEIGHTS: {
+                'rcnn_cls_weight': 1.0,
+                'rcnn_reg_weight': 1.0,
+                'rcnn_corner_weight': 1.0,
+                'code_weights': [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+            }
+
+    POST_PROCESSING:
+        RECALL_THRESH_LIST: [0.3, 0.5, 0.7]
+        SCORE_THRESH: 0.1
+        OUTPUT_RAW_SCORE: False
+
+        EVAL_METRIC: kitti
+
+        NMS_CONFIG:
+            MULTI_CLASSES_NMS: False
+            NMS_TYPE: nms_gpu
+            NMS_THRESH: 0.7
+            NMS_PRE_MAXSIZE: 4096
+            NMS_POST_MAXSIZE: 500
+
+
+OPTIMIZATION:
+    BATCH_SIZE_PER_GPU: 8
+    NUM_EPOCHS: 80
+
+    OPTIMIZER: adam_onecycle
+    LR: 0.01
+    WEIGHT_DECAY: 0.001
+    MOMENTUM: 0.9
+
+    MOMS: [0.95, 0.85]
+    PCT_START: 0.4
+    DIV_FACTOR: 10
+    DECAY_STEP_LIST: [35, 45]
+    LR_DECAY: 0.1
+    LR_CLIP: 0.0000001
+
+    LR_WARMUP: False
+    WARMUP_EPOCH: 1
+
+    GRAD_NORM_CLIP: 10
+
+    DB_2_W: 1.0
