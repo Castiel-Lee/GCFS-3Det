@@ -10,7 +10,7 @@ LiDAR-based 3D object detection models often struggle to generalize to real-worl
 
 
 ## 📰 News
-* **[2025-XX-XX]**: Code and GCFS benchmark protocols are released.
+* **[2026-01-07]**: Code and GCFS benchmark protocols are released.
 
 ---
 
