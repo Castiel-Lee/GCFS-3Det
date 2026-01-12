@@ -1,4 +1,4 @@
-# From Dataset to Real-world: General 3D Object Detection via Generalized Cross-domain Few-shot Learning
+# From Dataset to Real-world: General 3D Object Detection via Generalized Cross-domain Few-shot Learning [AAAI 2026]
 
 
 [![arXiv](https://img.shields.io/badge/arXiv-2503.06282-b31b1b.svg)](https://arxiv.org/abs/2503.06282)
@@ -11,7 +11,7 @@ LiDAR-based 3D object detection models often struggle to generalize to real-worl
 
 ## 📰 News
 * **[2026-01-07]**: Code and GCFS benchmark protocols are released.
-
+* **[2026-01-12]**: The paper will be presented at AAAI 2026, Singapore.
 ---
 
 &ensp;
